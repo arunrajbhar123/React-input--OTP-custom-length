@@ -63,7 +63,7 @@ const Pin = ({ length, onChange, demoOTP }) => {
       onPaste={handleOnPaste}
       style={{
         background: "#E8ECEF",
-        width: "25rem",
+        width: "70%",
         margin: "0.5rem auto",
         borderRadius: "5px",
         padding: "2rem",

@@ -5,7 +5,7 @@ import Pin from "./components/Pin.jsx";
 function App() {
   const [otp, setOtp] = useState("");
   const [demoOTP, setDemoOTP] = useState('');
-  const [boxLength, setBoxLength] = useState(2)
+  const [boxLength, setBoxLength] = useState(12)
 
   useEffect(() => {
     document.title = "hello"
@@ -15,10 +15,10 @@ function App() {
     <div className="App">
       <Pin length={Number(boxLength)} onChange={(value)=>{setOtp(value)}} demoOTP={demoOTP}/>
 
-      <h1>OTP value is :{otp}</h1>
+      <h1>Cart Number is :{otp}</h1>
       <p>
-        Enter Demo OTP:
-        <input type="text" onChange={(e)=>setDemoOTP(e.target.value)} maxLength={5} style={{width:"6rem"}}/>
+        Enter Dummy Cart Number:
+        <input type="text" onChange={(e)=>setDemoOTP(e.target.value)} maxLength={boxLength} style={{width:"auto"}}/>
       </p>
       <p>Enter Box length Number:
         <input type="Number" onChange={(e)=>setBoxLength(e.target.value)}/>
