@@ -5,7 +5,7 @@ import Pin from "./components/Pin.jsx";
 function App() {
   const [otp, setOtp] = useState("");
   const [demoOTP, setDemoOTP] = useState('');
-  const [boxLength, setBoxLength] = useState(12)
+  const [boxLength, setBoxLength] = useState(4)
 
   useEffect(() => {
     document.title = "hello"

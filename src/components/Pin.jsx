@@ -1,22 +1,33 @@
 import PropTypes from "prop-types";
 import { useState, useRef, useEffect } from "react";
 const Pin = ({ length, onChange, demoOTP }) => {
-
   const inputRef = useRef([]);
-  const [inputBoxLen,setInputBoxLen] = useState();
+  const [inputBoxLen, setInputBoxLen] = useState();
   const [inputValue, setInputValue] = useState(new Array(length).fill(""));
 
   const [status, setStatus] = useState();
   useEffect(() => {
-    let arr=new Array(length).fill(1)
+    let arr = new Array(length).fill(1);
     setInputBoxLen(arr);
   }, [length]);
-
+  let nextgoes = useRef(false);
+  let count = useRef(0);
   const handleInput = (e, index) => {
     inputValue[index] = e.target.value;
     setInputValue(inputValue);
     if (e.target.value > 0 && index < length - 1) {
-      inputRef.current[index + 1].focus();
+      if (nextgoes.current) {
+        count.current = 0;
+
+        nextgoes.current = false;
+        inputRef.current[index + 1].focus();
+      } else {
+        count.current++;
+
+        if (count.current === 3) {
+          nextgoes.current = true;
+        }
+      }
     }
     onChange(inputValue.join(""));
     if (inputValue.join("") === demoOTP) {
@@ -30,7 +41,7 @@ const Pin = ({ length, onChange, demoOTP }) => {
     setInputValue(inputValue);
     if (e.keyCode === 8 || e.keyCode === 46) {
       handleBackSpace(e, i);
-      inputValue[i] = e.target.value = "";
+      // inputValue[i] = e.target.value = "";
       setInputValue(inputValue);
       setStatus(false);
     } else {
@@ -40,7 +51,11 @@ const Pin = ({ length, onChange, demoOTP }) => {
 
   const handleBackSpace = (e, index) => {
     if (index > 0) {
-      inputRef.current[index - 1].focus();
+if(inputRef.current[index].value===""){
+
+  inputRef.current[index - 1].focus();
+}
+      
     }
     onChange(inputValue.join(""));
   };
@@ -63,7 +78,6 @@ const Pin = ({ length, onChange, demoOTP }) => {
       onPaste={handleOnPaste}
       style={{
         background: "#E8ECEF",
-        width: "70%",
         margin: "0.5rem auto",
         borderRadius: "5px",
         padding: "2rem",
@@ -85,7 +99,7 @@ const Pin = ({ length, onChange, demoOTP }) => {
               inputRef.current[index] = element;
             }}
             key={index}
-            maxLength={1}
+            maxLength={4}
             onKeyUp={(e) => handleKeyAction(e, index)}
           />
         );
